@@ -19,6 +19,7 @@ blockquote:before, blockquote:after,q:before, q:after {content:'';content:none;}
 table {border-collapse:collapse;border-spacing:0;}
 input{border:none;}
 *, *::before, *::after {box-sizing:border-box;}
+*:focus{outline:1px solid red;}
 /* ************************* 변수 ************************* */
 :root{
     /* color - bg */
@@ -39,8 +40,19 @@ input{border:none;}
     --replace-cccccc:#CBD5E1;
     --replace-757575:#718096;
     --replace-000000:#1A202C;
+    --replace-f5f5f5:#F8FAFC;
     /* color - point */
     --point-red:#F56565;
+    --prime-color-hanhwa:#FF6600;
+    --prime-color-doosan:#131230;
+    --prime-color-lg:#C30452;
+    --prime-color-kt:#121212;
+    --prime-color-ssg:#CE0E2D;
+    --prime-color-nc:#1D467D;
+    --prime-color-kiwoom:#570514;
+    --prime-color-kia:#EA0029;
+    --prime-color-lotte:#041E42;
+    --prime-color-samsung:#074CA1;
     /* box-shadow */
     --boxshadow-default:0px 4px 12px 0px rgba(26, 32, 44, 0.1);
     /* 레이아웃 */
