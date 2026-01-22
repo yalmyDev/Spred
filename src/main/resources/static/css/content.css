@@ -30,6 +30,7 @@
 .container > .content > .header{position:fixed;top:0;display:-webkit-flex;display:flex;justify-content:space-between;align-items:center;padding:28px 20px;width:100%;background-color:#fff;box-shadow:var(--boxshadow-sm);}
 .container > .content > .header > h1{font:700 1.8rem/1.8rem "Pretendard Variable";color:var(--replace-333333);}
 .container > .content > .header > h1 > em{color:var(--font-color-prime);}
+.container > .content > .header .side-menu{display:block;width:23px;height:29px;background:url("./../images/icon/mono/icon_hamburger.svg") center/contain no-repeat;border:none;}
 /* content */
 .divider{display:block;width:100%;height:2px;margin:16px 0;background-color:var(--replace-e0e0e0);}
 .steps{width:100%;}
@@ -60,7 +61,7 @@
 .info-wrap + .section-wrap{margin-top:20px;}
 .info-wrap [class^="count-"]{margin-right:4px;font:700 2.8rem/2.8rem "Pretendard Variable";color:var(--replace-333333);}
 .info-wrap .count-num{color:var(--font-color-prime);}
-.info-wrap .info-desc{font:300 1.6rem/1.6rem "Pretendard Variable";color:var(--replace-666666);}
+.info-wrap .info-desc{font:300 1.6rem/1.6rem "Pretendard Variable";color:var(--replace-666666);white-space:nowrap;}
 .info-wrap .info-desc:has(.count-percent){font-weight:bold;}
 .info-wrap .info-desc:has(.count-outcome){text-align:right;}
 .section-wrap + .info-wrap{margin-top:20px;}
@@ -71,21 +72,23 @@
 .info-wrap .time-table li > dl .match-result.win{background-color:#DCFCE7;color:#16A34A;}
 .info-wrap .time-table li > dl .match-result.lose{background-color:#FEE2E2;color:#DC2626;}
 
-.nav-menu{position:fixed;bottom:0;width:100%;height:70px;background-color:#fff;border: 1px solid red;}
-.nav-menu:before {content:'';display:block;position:absolute;left:0;top:-23px;width:100%;height:24px;background:linear-gradient(to top, rgba(255,255,255,1) 30%, rgba(255,255,255,0) 100%);}
-.nav-menu ul{display:-webkit-flex;display:flex;justify-content:center;align-items:center;width:100%;}
-.nav-menu ul li{width:calc(100% / 3);}
-.nav-menu ul li a{}
-.nav-menu ul li a[aria-current="page"]{}
-.nav-menu ul li a > i{}
-.nav-menu ul li a > span{}
-.nav-menu ul li a > i + span{}
+.nav-menu{position:fixed;bottom:0;width:100%;padding:0 20px 20px;background-color:#fff;border-top:1px solid var(--replace-f9f9f9);}
+.nav-menu ul{display:-webkit-flex;display:flex;justify-content:center;align-items:center;width:100%;height:58px;}
+.nav-menu ul li{width:100%;height:100%;}
+.nav-menu ul li a{display:-webkit-flex;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;width:100%;height:100%;text-decoration:none;}
+.nav-menu ul li a > i{width:18px;height:18px;background-color:var(--replace-666666);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:contain;mask-size:contain;}
+.nav-menu ul li:nth-of-type(1) a > i{-webkit-mask-image:url("./../images/icon/mono/icon_home.svg");mask-image:url("./../images/icon/mono/icon_home.svg");}
+.nav-menu ul li:nth-of-type(2) a > i{-webkit-mask-image:url("./../images/icon/mono/icon_record1.svg");mask-image:url("./../images/icon/mono/icon_record1.svg");}
+.nav-menu ul li:nth-of-type(3) a > i{-webkit-mask-image:url("./../images/icon/mono/icon_record2.svg");mask-image:url("./../images/icon/mono/icon_record2.svg");}
+.nav-menu ul li a > span{font:500 1.5rem/1.5rem "Pretendard Variable";color:var(--replace-666666);text-align:center;}
+.nav-menu ul li a[aria-current="page"] > span{color:var(--font-color-prime);}
+.nav-menu ul li a[aria-current="page"] > i{background-color:var(--bg-color-prime);}
 
 .msg-box{display:-webkit-flex;display:flex;justify-content:flex-start;align-items:center;padding:13px 12px;width:100%;}
 .msg-box i{display:block;width:1.3rem;height:1.3rem;}
 .msg-box dl{display:-webkit-flex;display:flex;justify-content:flex-start;align-items:center;width:100%;}
 .msg-box dl dt,
-.msg-box dl dd{font:400 1.3rem/1.3rem "Pretendard Variable";color:var(--font-color-prime);word-break:keep-all;white-space:nowrap;}
+.msg-box dl dd{font:400 1.3rem/1.3rem "Pretendard Variable";color:var(--font-color-prime);word-break:keep-all;}
 .msg-box i + dl{margin-left:4px;}
     /* button */
 [class^=btn-comm-]{display:-webkit-flex;display:flex;justify-content:center;align-items:center;width:100%;background-color:#fff;border:none}
