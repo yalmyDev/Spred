@@ -9,19 +9,33 @@ function setBodyHeight(){ // vh 단위 대응
     document.documentElement.style.setProperty('--vh', vh + 'px');
 }
 function layoutResize(){ // 페이지 하단 여백
+    // 페이지 - 푸터높이
     let footer = document.querySelector('.footer');
-
     if(footer){
         let height = footer.offsetHeight;
 
         document.documentElement.style.setProperty('--layout-btm-height', height + 'px');
     }
-
+    // 페이지 - 헤더높이
     let header = document.querySelector('.container > .content > .header');
     if(header){
         let height = header.offsetHeight;
 
         document.documentElement.style.setProperty('--layout-header-height', height + 'px');
+    }
+    // 모달 - 푸터높이
+    let mdHeader = document.querySelector('.modal-header');
+    if(mdHeader){
+        let height = mdHeader.offsetHeight;
+
+        document.documentElement.style.setProperty('--modal-header', height + 'px');
+    }
+    // 모달 - 헤더높이
+    let mdFooter = document.querySelector('.modal-footer');
+    if(mdFooter){
+        let height = mdFooter.offsetHeight;
+
+        document.documentElement.style.setProperty('--modal-footer', height + 'px');
     }
 }
 // ==================개별함수==================

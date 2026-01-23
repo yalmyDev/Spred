@@ -21,9 +21,9 @@
                 <button type="button" class="side-menu" title="사이드 메뉴 열기"></button>
             </div>
             <section class="info-wrap">
-                <h2 class="section-tit">시즌 선택</h2>
+                <h2 class="section-tit" id="selectData01">시즌 선택</h2>
                 <div class="select-box" id="seasonSelect">
-                    <button type="button" class="select" title="시즌 선택을 위한 바텀시트 열기">
+                    <button type="button" class="select" title="시즌 선택을 위한 바텀시트 열기" aria-expanded="false" aria-haspopup="listbox" aria-controls="bottomSheet01">
                         <span>2025 시즌</span>
                     </button>
                 </div>
@@ -117,58 +117,74 @@
     </div>
 </div>
 <!-- ########################### [end]_컨텐츠 영역 ########################### -->
+
 <!-- ########################### [start]_모달 영역 ########################### -->
-<div class="modal" id="bottomSheet01">
-    <div class="modal-wrap">
+<div class="modal btm-sheet" id="bottomSheet01">
+    <div class="modal-container">
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-tit">경기 시즌</h6>
+                <button type="button" class="close-md" title="모달 닫기"></button>
             </div>
             <div class="modal-content">
-                <ul>
-                    <li class="option-btn">
-                        <data value="" class="option">
+                <ul class="option-btn-wrap" role="listbox" aria-labelledby="selectData01">
+                    <li class="option-btn" role="presentation">
+                        <button type="button" value="" class="option" role="option" aria-selected="true">
                             <span>2025.03.22 ~ 2025.10.05</span>
-                        </data>
+                        </button>
                     </li>
-                    <li class="option-btn">
-                        <data value="" class="option">
+                    <li class="option-btn" role="presentation">
+                        <button type="button" value="" class="option" role="option" aria-selected="false">
                             <span>2025.03.22 ~ 2025.10.05</span>
-                        </data>
+                        </button>
                     </li>
-                    <li class="option-btn">
-                        <data value="" class="option">
+                    <li class="option-btn" role="presentation">
+                        <button type="button" value="" class="option" role="option" aria-selected="false">
                             <span>2025.03.22 ~ 2025.10.05</span>
-                        </data>
+                        </button>
                     </li>
-                    <li class="option-btn">
-                        <data value="" class="option">
+                    <li class="option-btn" role="presentation">
+                        <button type="button" value="" class="option" role="option" aria-selected="false">
                             <span>2025.03.22 ~ 2025.10.05</span>
-                        </data>
+                        </button>
                     </li>
-                    <li class="option-btn">
-                        <data value="" class="option">
+                    <li class="option-btn" role="presentation">
+                        <button type="button" value="" class="option" role="option" aria-selected="false">
                             <span>2025.03.22 ~ 2025.10.05</span>
-                        </data>
+                        </button>
                     </li>
-                    <li class="option-btn">
-                        <data value="" class="option">
+                    <li class="option-btn" role="presentation">
+                        <button type="button" value="" class="option" role="option" aria-selected="false">
                             <span>2025.03.22 ~ 2025.10.05</span>
-                        </data>
+                        </button>
                     </li>
                 </ul>
-            </div>
-            <div class="modal-footer">
-                <div class="btn-wrap">
-                    <button class="btn-comm-prime">
-                        <span>디자인 확인용 버튼</span>
-                    </button>
-                </div>
             </div>
         </div>
     </div>
 </div>
 <!-- ########################### [end]_모달 영역 ########################### -->
+
+<!-- ########################### [start]_사이드메뉴 영역 ########################### -->
+<div class="side-menu">
+    <div class="menu-wrap">
+        <div class="menu-content">
+            <div class="menu-header">
+                <div class="team-name">한화 이글스<i class="ico-none"></i></div>
+                <div class="nickname"><em>기록해연</em>님</div>
+            </div>
+            <div class="menu-body">
+                <ul>
+                    <li><a href="#"><span>종목 관리</span></a></li>
+                    <li><a href="#"><span>우리팀 변경</span></a></li>
+                    <li><a href="#"><span>문의하기 / 의견 보내기</span></a></li>
+                    <button type="button"><span>데이터 초기화</span></button>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ########################### [end]_사이드메뉴 영역 ########################### -->
 
 <script>
         const seasonData = {

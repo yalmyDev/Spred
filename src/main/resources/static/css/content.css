@@ -16,6 +16,7 @@
 .ico-kia{background:url(./../images/icon/team/icon_kia.svg);}
 .ico-lotte{background:url(./../images/icon/team/icon_lotte.svg);}
 .ico-samsung{background:url(./../images/icon/team/icon_samsung.svg);}
+
 /* Header */
 [class^=tit-d0]{display:-webkit-flex;display:flex;justify-content:center;align-items:center;gap:8px;color:var(--replace-333333);margin-bottom:12px;font-weight:700;}
 [class^=tit-d0] > [class^=ico-]{display:block;width:24px;height:24px;background-position:center;background-size:contain;background-repeat:no-repeat}
@@ -27,10 +28,11 @@
 .float-container .header p{color:var(--replace-666666);font:400 1.5rem/2.25rem "Pretendard Variable";}
 .float-container .header.center{text-align:center;margin-bottom:40px;}
 .progress-bar + .header {padding:0;}
-.container > .content > .header{position:fixed;top:0;display:-webkit-flex;display:flex;justify-content:space-between;align-items:center;padding:28px 20px;width:100%;background-color:#fff;box-shadow:var(--boxshadow-sm);}
+.container > .content > .header{position:fixed;top:0;display:-webkit-flex;display:flex;justify-content:space-between;align-items:center;padding:28px 20px;width:100%;background-color:#fff;box-shadow:var(--boxshadow-sm);z-index:1}
 .container > .content > .header > h1{font:700 1.8rem/1.8rem "Pretendard Variable";color:var(--replace-333333);}
 .container > .content > .header > h1 > em{color:var(--font-color-prime);}
 .container > .content > .header .side-menu{display:block;width:23px;height:29px;background:url("./../images/icon/mono/icon_hamburger.svg") center/contain no-repeat;border:none;}
+
 /* content */
 .divider{display:block;width:100%;height:2px;margin:16px 0;background-color:var(--replace-e0e0e0);}
 .steps{width:100%;}
@@ -55,7 +57,8 @@
 .info-wrap > .msg-box{background-color:var(--bg-color-sheer);border-radius:8px;}
 .info-wrap .select-box + .msg-box{margin-top:8px;}
 .info-wrap .select-box .select{display:block;width:100%;height:100%;padding:12px 16px;text-align:left;background:none;border:none;}
-.info-wrap .select-box .select > span{font:700 1.5rem/1.7rem "Pretendard Variable";color:var(--replace-000000);}
+.info-wrap .select-box .select > span{position:relative;display:-webkit-flex;display:flex;justify-content:space-between;align-items:center;font:700 1.5rem/1.7rem "Pretendard Variable";color:var(--replace-000000);}
+.info-wrap .select-box .select > span:after{content:'';display:block;width:1.8rem;height:1.8rem;-webkit-mask-image:url("./../images/icon/color/icon_arrow_down.svg");mask-image:url("./../images/icon/color/icon_arrow_down.svg");-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:contain;mask-size:contain;background-color:var(--bg-color-prime);}
 .section-wrap{display:-webkit-flex;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;width:100%;}
 .section-wrap > .info-wrap:not(:nth-of-type(3n + 1)){flex:1;}
 .info-wrap + .section-wrap{margin-top:20px;}
@@ -90,7 +93,8 @@
 .msg-box dl dt,
 .msg-box dl dd{font:400 1.3rem/1.3rem "Pretendard Variable";color:var(--font-color-prime);word-break:keep-all;}
 .msg-box i + dl{margin-left:4px;}
-    /* button */
+
+/* button */
 [class^=btn-comm-]{display:-webkit-flex;display:flex;justify-content:center;align-items:center;width:100%;background-color:#fff;border:none}
 [class^=btn-comm-].sm{height:51px;border-radius:12px;}
 [class^=btn-comm-] > span{word-break:keep-all;white-space:nowrap;}
@@ -117,8 +121,10 @@
 .btn-link{margin-top:36px;}
 .btn-link > a > span{color:var(--font-color-prime);}
 .btn-link > a > span:after{border-bottom:1px solid var(--border-color-prime);}
+
 /* btn-wrap */
 .btn-wrap{display:-webkit-flex;display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;}
+
 /* form-group */
 .form-group-wrap{display:block;width:100%;}
 .form-group{display:-webkit-flex;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;width:100%;height:fit-content;}
@@ -150,6 +156,7 @@
 .form-group .radio-btn label > .txt-wrap .desc{font:400 1.3rem/1.7rem "Pretendard Variable";color:var(--replace-999999);}
 .form-group .radio-btn label > .txt-wrap .tit + .desc{margin-top:4px;}
 .form-group .radio-btn label:has(input[type="radio"]:checked) > .txt-wrap span{color:#fff;}
+
 .progress-bar{position:relative;display:-webkit-flex;display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:36px;width:12rem;height:4px;}
 .progress-bar .progress-step{display:block;width:calc(100% / 4);height:100%;background-color:var(--bg-color-prime);border-radius:2px;}
 .progress-bar .progress-step.active{background-image:linear-gradient(to right, var(--bg-color-prime) 50%, var(--bg-color-default) 50%);background-size:200% 100%;background-position:100% 0;animation:slideFill 1s ease-out forwards;}
@@ -159,7 +166,7 @@
     from{background-position:100% 0;}
     to{background-position:0 0;}
 }
-/* btn-wrap */
+
 .team-grid ul{display:-webkit-flex;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;width:100%;height:fit-content;gap:10px;}
 .team-grid ul li{position:relative;display:-webkit-flex;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;width:calc(50% - 5px);height:115px;background-color:#fff;border-radius:14px;}
 /* button - default */
@@ -218,3 +225,13 @@
 .signup-section{display:-webkit-flex;display:flex;justify-content:center;align-items:center;flex-direction:column;width:100%;}
 .signup-section > .desc{text-align:center;font:400 1.3rem/1.6rem "Pretendard Variable";color:var(--replace-999999);}
 .signup-section > .desc + .btn-link{margin-top:16px;}
+
+.option-btn-wrap{display:-webkit-flex;display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;gap:6px;}
+.option-btn-wrap > li{width:100%;}
+.option-btn-wrap > li .option{padding:16px 0;width:100%;height:100%;text-align:left;}
+.option-btn-wrap > li .option > span{position:relative;display:-webkit-flex;display:flex;justify-content:space-between;align-items:center;font:400 1.6rem/1.6rem "Pretendard Variable";color:var(--replace-333333);}
+.option-btn-wrap > li .option[aria-selected="true"] > span:after{content:'';display:block;width:3rem;height:3rem;background-color:var(--bg-color-prime);-webkit-mask-image:url("./../images/icon/color/icon_checked.svg");mask-image:url("./../images/icon/color/icon_checked.svg");-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:2.2rem;mask-size:2.2rem;}
+
+/* modal */
+.modal-tit{font:600 1.6rem/1.6rem "Pretendard Variable";color:var(--replace-333333);}
+.modal-tit + .close-md{display:block;padding:4px;width:18px;height:18px;background-color:transparent;background-image:url("./../images/icon/mono/icon_close.svg");background-repeat:no-repeat;background-size:contain;border:none;}
