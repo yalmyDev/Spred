@@ -60,6 +60,8 @@ function openModal(modalId){
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
 
+    modal.dispatchEvent(new CustomEvent('modal.shown'));
+
     // ========== 접근성 ==========
     let focusableEl = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
 
@@ -97,6 +99,7 @@ function dismissModal(modalId){
     modal.classList.remove('show');
     document.body.style.overflow = '';
 
+    if(modal.triggerElement) modal.triggerElement.focus();
     if(focusHandler){
         modal.removeEventListener('keydown', focusHandler);
         focusHandler = null;
@@ -107,26 +110,30 @@ function dismissModal(modalId){
     }
 }
 // ====================== 달력 바텀시트 그리기 ======================
-function drawCalendar(){
-    let showDateBtn = document.getElementById('showDate');
-    let displayDateTxt = document.getElementById('displayDate');
+function initCalendar(modalId){
+    let modal = document.getElementById(modalId);
 
-    // 달력 내부 요소
-    const calendarBody = document.getElementById('calendarBody');
-    const calendarTit = document.getElementById('calendarTit');
-    const prevBtn = document.getElementById('prevMonth');
-    const nextBtn = document.getElementById('nextMonth');
-    const confirmBtn = document.getElementById('confirmBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
+    // 요소 가져오기
+    let showDateBtn = document.getElementById('showDate');
+    let displayDateSpan = document.getElementById('displayDate');
+    let calendarBody = document.getElementById('calendarBody');
+    let calendarTit = document.getElementById('calendarTit');
+    let prevBtn = document.getElementById('prevMonth');
+    let nextBtn = document.getElementById('nextMonth');
+    let confirmBtn = document.getElementById('confirmBtn'); // [오타수정] confirnBtn -> confirmBtn
+
+    // 닫기 버튼 (HTML에 onclick="dismissModal"이 있어도, JS 제어가 필요할 수 있으므로 유지)
+    let closeModalBtn = modal.querySelector('[onclick*="dismissModal"]');
 
     let currentDate = new Date();
     let selectedDate = new Date();
 
+    // [달력 렌더링 함수]
     function renderCalendar(){
         let year = currentDate.getFullYear();
         let month = currentDate.getMonth();
 
-        canlendarTit.textContent = `${year}년 ${String(month + 1).padStart(2, '0')}월`;
+        calendarTit.textContent = `${year}년 ${String(month + 1).padStart(2, '0')}월`;
 
         let firstDay = new Date(year, month, 1).getDay();
         let lastDate = new Date(year, month + 1, 0).getDate();
@@ -136,10 +143,9 @@ function drawCalendar(){
         let isMonthEnded = false;
 
         for(let i = 0; i < 6; i++){
-            if(isMonthEnded && 1 > 0) break;
-
+            if(isMonthEnded && i > 0) break;
             let rowHtml = '<tr>';
-            for (let j = 0;j<7;j++){
+            for(let j = 0; j < 7; j++){
                 if((i === 0 && j < firstDay) || dayCount > lastDate){
                     rowHtml += '<td></td>';
                     if(dayCount > lastDate) isMonthEnded = true;
@@ -147,22 +153,89 @@ function drawCalendar(){
                     let isToday = isSameDay(new Date(year, month, dayCount), new Date());
                     let isSelected = isSameDay(new Date(year, month, dayCount), selectedDate);
 
-                    rowHtml += `<td><button type="button" class="date-btn" ${isToday ? 'today' : ''}" aria-selected="${isSelected ? 'true' : 'false'}" date-day="${dayCount}" aria-label="${year}년 ${month + 1}월 ${dayCount}일">${dayCount}</button></td>`;
+                    rowHtml += `<td><button type="button" class="date-btn ${isToday ? 'today' : ''}" aria-selected="${isSelected ? 'true' : 'false'}" data-day="${dayCount}" aria-label="${year}년 ${month + 1}월 ${dayCount}일">${dayCount}</button></td>`;
                     dayCount++;
                 }
             }
             rowHtml += '</tr>';
-            if(!isMonthEnded || (isMonthEnded && rowHtml.includes('date-btn'))){
+            if(!isMonthEnded || (rowHtml.includes('date-btn'))){
                 html += rowHtml;
             }
         }
         calendarBody.innerHTML = html;
         addDateClickEvents();
     }
+
+    function isSameDay(d1, d2){
+        return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
+    }
+
+    function addDateClickEvents() {
+        const buttons = calendarBody.querySelectorAll('.date-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const day = parseInt(e.target.dataset.day);
+                // 날짜 선택 시 selectedDate 업데이트
+                selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+                renderCalendar(); // 선택 효과(색상) 반영을 위해 다시 그리기
+            });
+        });
+    }
+
+    // [핵심 추가] 모달이 열릴 때('modal.shown') 실행될 로직
+    modal.addEventListener('modal.shown', function(){
+        // 모달 열릴 때, '선택된 날짜'가 있는 달을 보여주기 위해 currentDate 재설정
+        currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+        renderCalendar(); // 달력 그리기 실행!
+    });
+
+    // 이벤트 핸들러들
+    if(confirmBtn){ // 존재 여부 체크 습관화
+        confirmBtn.addEventListener('click', function(){
+            const y = selectedDate.getFullYear();
+            const m = String(selectedDate.getMonth() + 1).padStart(2, '0');
+            const d = String(selectedDate.getDate()).padStart(2, '0');
+
+            displayDateSpan.textContent = `${y}.${m}.${d}`;
+            if(showDateBtn) showDateBtn.classList.add('is-value');
+
+            dismissModal(modalId);
+        });
+    }
+
+    if(closeModalBtn){
+        closeModalBtn.addEventListener('click', function(){
+            dismissModal(modalId);
+        });
+    }
+
+    if(prevBtn){
+        prevBtn.addEventListener('click', function (){
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+    }
+
+    if(nextBtn){
+        nextBtn.addEventListener('click', function(){
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+    }
 }
 
 window.addEventListener('load', activeSpred);
 window.addEventListener('resize', activeSpred);
+document.addEventListener('DOMContentLoaded', function(){
+    const calendarEl = document.getElementById('calendarBody');
+
+    if(calendarEl){
+        const parentModal = calendarEl.closest('.btm-sheet');
+        if(parentModal){
+            initCalendar(parentModal.id);
+        }
+    }
+})
 
 // ===========스크롤 요소 감지 스크립트 : 퍼블용 / 개발X
 // document.addEventListener('scroll', function(event) {
