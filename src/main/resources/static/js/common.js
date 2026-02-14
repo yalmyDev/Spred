@@ -2,14 +2,13 @@ function activeSpred(){
     setBodyHeight();
     layoutResize();
     modalLayoutResize();
-    /****************테스트용 함수(반영X)****************/
 }
-// ==================css 변수 선언==================
+// ====================== css 변수 선언 ======================
 function setBodyHeight(){ // vh 단위 대응
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', vh + 'px');
 }
-function layoutResize(){ // 페이지 하단 여백
+function layoutResize(){ // 페이지 여백
     // 페이지 - 푸터높이
     let footer = document.querySelector('.footer');
     if(footer){
@@ -25,23 +24,25 @@ function layoutResize(){ // 페이지 하단 여백
         document.documentElement.style.setProperty('--layout-header-height', height + 'px');
     }
 }
-function modalLayoutResize(){
-    // 모달 - 푸터높이
-    let mdHeader = document.querySelector('.modal-header');
+function modalLayoutResize(modal){ // 모달 여백
+    const targetModal = modal || document.querySelector('.modal.show');
+    if(!targetModal) return;
+    // 모달 - 헤더높이
+    let mdHeader = targetModal.querySelector('.modal-header');
     if(mdHeader){
         let height = mdHeader.offsetHeight;
 
         document.documentElement.style.setProperty('--modal-header', height + 'px');
     }
-    // 모달 - 헤더높이
-    let mdFooter = document.querySelector('.modal-footer');
+    // 모달 - 푸터높이
+    let mdFooter = targetModal.querySelector('.modal-footer');
     if(mdFooter){
         let height = mdFooter.offsetHeight;
 
         document.documentElement.style.setProperty('--modal-footer', height + 'px');
     }
 }
-// ==================개별함수==================
+// ====================== prime color 지정 ======================
 function modeChange(teamName){
     if(teamName === 'none'){
         document.body.className = '';
@@ -50,7 +51,7 @@ function modeChange(teamName){
         document.body.className = teamName;
     }
 }
-// ====================== 모달 ======================
+// ====================== 모달 열기 ======================
 let focusHandler = null;
 
 function openModal(modalId){
@@ -60,9 +61,17 @@ function openModal(modalId){
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
 
-    modal.dispatchEvent(new CustomEvent('modal.shown'));
+    modal.dispatchEvent(new CustomEvent('modal.show'));
 
-    // ========== 접근성 ==========
+    // =============== [start]타임피커가 있는 모달 ===============
+    const hasPicker = modal.querySelector('.picker-wrapper');
+
+    if (hasPicker) {
+        initTimePicker(modalId);
+    }
+    // =============== [end]타임피커가 있는 모달 ===============
+
+    // =============== 접근성 ===============
     let focusableEl = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
 
     if(focusableEl.length > 0){
@@ -90,9 +99,10 @@ function openModal(modalId){
         modal.addEventListener('keydown', focusHandler);
     }
     if(typeof modalLayoutResize === 'function'){
-        modalLayoutResize();
+        modalLayoutResize(modal);
     }
 }
+// ====================== 모달 닫기 ======================
 function dismissModal(modalId){
     let modal = document.getElementById(modalId);
 
@@ -182,8 +192,8 @@ function initCalendar(modalId){
         });
     }
 
-    // [핵심 추가] 모달이 열릴 때('modal.shown') 실행될 로직
-    modal.addEventListener('modal.shown', function(){
+    // [핵심 추가] 모달이 열릴 때('modal.show') 실행될 로직
+    modal.addEventListener('modal.show', function(){
         // 모달 열릴 때, '선택된 날짜'가 있는 달을 보여주기 위해 currentDate 재설정
         currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
         renderCalendar(); // 달력 그리기 실행!
@@ -224,6 +234,78 @@ function initCalendar(modalId){
     }
 }
 
+// ====================== 타임피커 바텀시트 그리기 ======================
+// 선택된 값을 저장할 변수 (초기값)
+let tempSelectedTime = { hour: '00', min: '00' };
+
+function initTimePicker(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+
+    const dataMap = {
+        'col-hour': Array.from({length: 24}, (_, i) => String(i).padStart(2, '0')),
+        'col-min': Array.from({length: 60}, (_, i) => String(i).padStart(2, '0'))
+    };
+
+    const pickerCols = modal.querySelectorAll('.picker-col');
+
+    pickerCols.forEach((container) => {
+        const colId = container.id;
+        const scrollBox = container.querySelector('.wheel-scroll');
+        const data = dataMap[colId];
+
+        if (!data || !scrollBox) return;
+
+        // 1. 데이터 주입
+        if (scrollBox.children.length === 0) {
+            scrollBox.innerHTML = data.map(t => `<li class="wheel-item">${t}</li>`).join('');
+        }
+
+        // 2. [핵심] 유동적 스냅 로직 (화면/폰트 크기 대응)
+        let isScrolling;
+        container.onscroll = () => {
+            window.clearTimeout(isScrolling);
+            isScrolling = setTimeout(() => {
+                // 현재 렌더링된 아이템의 높이를 실시간으로 측정 (A11y 대응)
+                const firstItem = scrollBox.querySelector('.wheel-item');
+                const itemHeight = firstItem ? firstItem.offsetHeight : 40;
+
+                const index = Math.round(container.scrollTop / itemHeight);
+
+                // 계산된 위치로 강제 정렬 (숫자가 위로 솟구치는 현상 방지)
+                container.scrollTo({
+                    top: index * itemHeight,
+                    behavior: 'smooth'
+                });
+
+                const items = scrollBox.querySelectorAll('.wheel-item');
+                items.forEach((item, i) => {
+                    if (i === index) {
+                        item.classList.add('active');
+                        if (colId === 'col-hour') tempSelectedTime.hour = item.textContent;
+                        if (colId === 'col-min') tempSelectedTime.min = item.textContent;
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }, 100);
+        };
+    });
+
+    // 선택 완료 버튼 이벤트
+    const applyBtn = modal.querySelector('#applyTime');
+    if (applyBtn) {
+        applyBtn.onclick = () => {
+            const displaySpan = document.getElementById('displayTime');
+            if (displaySpan) {
+                displaySpan.textContent = `${tempSelectedTime.hour} : ${tempSelectedTime.min}`;
+            }
+            if (typeof dismissModal === 'function') dismissModal(modalId);
+        };
+    }
+}
+
+/* *************************** 실행부 *************************** */
 window.addEventListener('load', activeSpred);
 window.addEventListener('resize', activeSpred);
 document.addEventListener('DOMContentLoaded', function(){
@@ -236,8 +318,8 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 })
-
-// ===========스크롤 요소 감지 스크립트 : 퍼블용 / 개발X
+/* +++++++++++++++++++++++++++++++++++++ 퍼블용 / 개발X +++++++++++++++++++++++++++++++++++++ */
+// ===========스크롤 요소 감지 스크립트
 // document.addEventListener('scroll', function(event) {
 //     const target = event.target;
 //
@@ -252,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function(){
 //     }
 // }, true);
 
-// =========탭 감지 스크립트 : 퍼블용/개발X
+// =========탭 감지 스크립트
 // window.addEventListener('keydown', (event) => {
 //     // Tab 키가 눌렸는지 확인 (Shift + Tab 포함)
 //     if (event.key === 'Tab') {
