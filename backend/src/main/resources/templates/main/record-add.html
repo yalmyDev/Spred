@@ -40,6 +40,20 @@
                             </button>
                         </div>
                     </fieldset>
+
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>홈/원정</span></legend>
+                        <div class="group-wrap">
+                            <label class="form-item">
+                                <input type="radio" name="place" value="home" class="radio-btn" required>
+                                <span class="rd-btn-txt">홈</span>
+                            </label>
+                            <label class="form-item">
+                                <span class="rd-btn-txt">원정</span>
+                                <input type="radio" name="place" value="away" class="radio-btn" required>
+                            </label>
+                        </div>
+                    </fieldset>
                 </div>
             </section>
             <section class="field-wrap">
@@ -211,7 +225,7 @@
 </div>
 
 <!-- ########################### [start]_모달 영역_경기장선택 ########################### -->
-<div class="modal full-modal show" id="fullModal01" role="dialog" aria-labelledby="searchStadium" aria-modal="true">
+<div class="modal full-modal" id="fullModal01" role="dialog" aria-labelledby="searchStadium" aria-modal="true">
     <div class="modal-container">
         <div class="modal-content-wrap">
             <div class="modal-header">
@@ -222,23 +236,15 @@
                 <div class="item-list-wrap">
                     <div class="view-choice">
                         <ul>
-                            <li>
-                                <span>KBO 리그</span>
-                                <button class="reset-choice" type="button" title="선택 초기화하기"></button>
-                            </li>
-                            <li>
-                                <span>광주기아챔피언스필드</span>
-                                <button class="reset-choice" type="button" title="선택 초기화하기"></button>
-                            </li>
                         </ul>
                     </div>
-                    <div class="select-major show" id="gameMenu">
+                    <div class="select-item show" id="gameMenu">
                         <ul>
                             <li>
-                                <button type="button">KBO 리그</button>
+                                <button type="button" aria-controls="kboLeague">KBO 리그</button>
                             </li>
                             <li>
-                                <button type="button">퓨처스리그</button>
+                                <button type="button" aria-controls="futuresLeague">퓨처스리그</button>
                             </li>
                         </ul>
                     </div>

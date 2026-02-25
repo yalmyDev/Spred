@@ -2,6 +2,7 @@ function activeSpred(){
     setBodyHeight();
     layoutResize();
     modalLayoutResize();
+    selectStadium();
 }
 // ====================== css 변수 선언 ======================
 function setBodyHeight(){ // vh 단위 대응
@@ -304,7 +305,116 @@ function initTimePicker(modalId) {
         };
     }
 }
+/* *************************** 경기장 선택 *************************** */
+/**
+ * 경기장 선택 모달 로직
+ * aria-labelledby="searchStadium" 속성을 가진 모달 내부에서만 동작합니다.
+ */
+function selectStadium() {
+    const modal = document.querySelector('.modal[aria-labelledby="searchStadium"]');
+    if (!modal) return;
 
+    const selectItems = modal.querySelectorAll('.select-item');
+    const viewChoiceUl = modal.querySelector('.view-choice ul');
+    const applyPlaceBtn = modal.querySelector('#applyPlace');
+    const stadiumSearchBtnTxt = document.querySelector('.form-group .search .rd-btn-txt');
+
+    let viewHistory = ['gameMenu'];
+    let selectedStadium = ""; // 최종 선택된 텍스트 저장용
+
+    const switchView = (targetId, isForward = true) => {
+        selectItems.forEach(item => {
+            item.classList.toggle('show', item.id === targetId);
+        });
+        if (isForward && viewHistory[viewHistory.length - 1] !== targetId) {
+            viewHistory.push(targetId);
+        }
+    };
+
+    // 1. 버튼 클릭 핸들러
+    modal.querySelectorAll('.select-item button').forEach(btn => {
+        btn.onclick = (e) => {
+            const targetId = e.currentTarget.getAttribute('aria-controls');
+            const btnText = e.currentTarget.textContent.trim();
+            const parentContainer = e.currentTarget.closest('.select-item');
+
+            // [수정] 어떤 버튼을 누르든 일단 현재 텍스트를 최신 선택값으로 업데이트
+            // 하위 메뉴가 있든 없든, 마지막에 누른 것이 '구장명'이 될 가능성이 높기 때문입니다.
+            selectedStadium = btnText;
+
+            const type = parentContainer.id === 'gameMenu' ? 'league' : 'stadium';
+            addChoiceTag(btnText, type, parentContainer.id);
+
+            if (targetId) {
+                switchView(targetId);
+            }
+        };
+    });
+
+    // 2. 태그 생성 및 삭제
+    const addChoiceTag = (text, type, sourceId) => {
+        const isExist = Array.from(viewChoiceUl.querySelectorAll('span')).some(s => s.textContent === text);
+        if (isExist) return;
+
+        viewChoiceUl.querySelectorAll(`li[data-source="${sourceId}"]`).forEach(li => li.remove());
+
+        const li = document.createElement('li');
+        li.dataset.type = type;
+        li.dataset.source = sourceId;
+        li.innerHTML = `
+            <span>${text}</span>
+            <button class="reset-choice" type="button" title="선택 초기화하기"></button>
+        `;
+
+        li.querySelector('.reset-choice').addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            const allTags = Array.from(viewChoiceUl.querySelectorAll('li'));
+            const currentIndex = allTags.indexOf(li);
+            allTags.slice(currentIndex).forEach(tag => tag.remove());
+
+            // [중요] 삭제 후에는 현재 남아있는 마지막 태그의 텍스트로 선택값 복구
+            const remainingTags = viewChoiceUl.querySelectorAll('li');
+            if (remainingTags.length > 0) {
+                selectedStadium = remainingTags[remainingTags.length - 1].querySelector('span').textContent;
+            } else {
+                selectedStadium = "";
+            }
+
+            if (viewHistory.length > 1) {
+                viewHistory.pop();
+                const prevViewId = viewHistory[viewHistory.length - 1];
+                switchView(prevViewId, false);
+            }
+        });
+
+        viewChoiceUl.appendChild(li);
+
+        setTimeout(() => {
+            viewChoiceUl.scrollTo({ left: viewChoiceUl.scrollWidth + 20, behavior: 'smooth' });
+        }, 10);
+    };
+
+    // 3. 최종 저장 (동작 보장 로직)
+    if (applyPlaceBtn) {
+        applyPlaceBtn.onclick = () => {
+            // 값이 비어있지 않다면 무조건 반영 후 닫기
+            if (selectedStadium !== "") {
+                stadiumSearchBtnTxt.textContent = selectedStadium;
+
+                // common.js의 dismissModal 호출
+                if (typeof dismissModal === 'function') {
+                    dismissModal(modal.id);
+                } else {
+                    // 혹시 dismissModal이 없을 경우를 대비한 직접 닫기
+                    modal.classList.remove('show');
+                }
+            } else {
+                alert("경기장을 선택해주세요."); // 선택 유도
+            }
+        };
+    }
+}
 /* *************************** 실행부 *************************** */
 window.addEventListener('load', activeSpred);
 window.addEventListener('resize', activeSpred);

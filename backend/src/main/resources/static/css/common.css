@@ -19,7 +19,7 @@ blockquote:before, blockquote:after,q:before, q:after {content:'';content:none;}
 table {border-collapse:collapse;border-spacing:0;}
 input{border:none;}
 *, *::before, *::after {box-sizing:border-box;}
-*:focus{outline:1px solid red;}
+/**:focus{outline:1px solid red;}*/
 /* ************************* 변수 ************************* */
 :root{
     /* color - bg */
