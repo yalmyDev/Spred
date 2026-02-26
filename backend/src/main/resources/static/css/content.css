@@ -124,7 +124,8 @@
 .form-group > .form-tit{margin-bottom:10px;}
 .form-group > .form-tit > span{position:relative;}
 .form-group > .form-tit:has(+ .form-item input[required]) > span:after,
-.form-group > .form-tit:has(+ .group-wrap .form-item input[required]) > span:after{content:'';position:absolute;right:-0.8rem;top:0.3rem;width:0.5rem;height:0.5rem;background-color:var(--point-red);border-radius:100%}
+.form-group > .form-tit:has(+ .group-wrap .form-item input[required]) > span:after,
+.form-group > .form-tit:has(+ .group-wrap .form-item[data-type="required"]) > span:after{content:'';position:absolute;right:-0.8rem;top:0.3rem;width:0.5rem;height:0.5rem;background-color:var(--point-red);border-radius:100%}
 .form-group > .form-tit:has(+ .group-wrap button[id^="show"]) > span:after{content:'';position:absolute;right:-0.8rem;top:0.3rem;width:0.5rem;height:0.5rem;background-color:var(--point-red);border-radius:100%}
 .form-group .form-item > input[type="text"]{display:block;width:100%;height:100%;color:var(--replace-666666);font:400 1.5rem/1.8rem "Pretendard Variable";}
 .form-group .form-item > input[type="text"]::placeholder{color:var(--replace-757575);}
@@ -153,7 +154,7 @@
         }
     }
 }
-.form-group > .group-wrap .form-item{display:-webkit-flex;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;width:100%;padding:15px 0 13px;}
+.form-group > .group-wrap .form-item{display:-webkit-flex;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;width:100%;padding:15px 20px 13px;}
 .form-group > .group-wrap .form-item.search{flex-direction:row;}
 .form-group > .group-wrap .form-item:has(input[type="radio"]:checked){background-color:var(--bg-color-prime);border-color:var(--border-color-prime);}
 .form-group > .group-wrap .form-item:nth-of-type(odd):last-of-type{width:100%;}
@@ -371,5 +372,19 @@
             }
         }
     }
-
+}
+.grid-btn-wrap{
+    display:-webkit-flex;display:flex;flex-wrap:wrap;gap:6px;
+    li{
+        display:-webkit-flex;display:flex;justify-content:center;align-items:center;width:calc((100% / 3) - 6px);height:45px;border:2px solid var(--border-color-prime);border-radius:15px;
+        &.active{
+            border:none;
+        }
+        button{
+            height:100%;width:100%;
+            span{
+                word-break:keep-all;
+            }
+        }
+    }
 }

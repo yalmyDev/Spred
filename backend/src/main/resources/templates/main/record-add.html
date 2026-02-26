@@ -34,13 +34,13 @@
                     <fieldset class="form-group">
                         <legend class="form-tit"><span>구장</span></legend>
                         <div class="group-wrap">
-                            <button class="form-item search" type="button" title="경기장 선택 풀팝업열기" onclick="openModal('fullModal01')">
+                            <button class="form-item search" type="button" title="경기장 선택 풀팝업열기" onclick="openModal('fullModal01')" data-type="required" aria-required="true">
                                 <span class="rd-btn-txt">경기장 검색하기</span>
                                 <i aria-hidden="true"></i>
                             </button>
                         </div>
                     </fieldset>
-
+                    <!--//-->
                     <fieldset class="form-group">
                         <legend class="form-tit"><span>홈/원정</span></legend>
                         <div class="group-wrap">
@@ -53,6 +53,14 @@
                                 <input type="radio" name="place" value="away" class="radio-btn" required>
                             </label>
                         </div>
+                    </fieldset>
+                    <!--//-->
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>상대팀</span></legend>
+                        <div class="group-wrap">
+                            <button type="button" id="showTeam" class="data-input-box" aria-haspopup="dialog" aria-controls="bottomSheet03" onclick="openModal('bottomSheet03');"><span id="displayTeam">상대팀 선택</span></button>
+                        </div>
+
                     </fieldset>
                 </div>
             </section>
@@ -348,6 +356,57 @@
             <div class="modal-footer">
                 <div class="btn-wrap">
                     <button class="btn-comm-prime" id="applyPlace" onclick="dismissModal('fullModal01');"><span>선택 완료</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ########################### [start]_모달 영역_시간선택 ########################### -->
+<div class="modal btm-sheet" id="bottomSheet03" role="dialog" aria-labelledby="selectTeam" aria-modal="true">
+    <div class="modal-container">
+        <div class="modal-content-wrap">
+            <div class="modal-header">
+                <h2 class="modal-tit" id="selectTeam">상대팀 선택</h2>
+                <button type="button" class="close-md" title="모달 닫기" onclick="dismissModal('bottomSheet03');"></button>
+            </div>
+            <div class="modal-content">
+                <ul class="grid-btn-wrap">
+                    <li>
+                        <button type="button" team-data="hanhwa"><span>한화 이글스</span></button>
+                    </li>
+                    <li>
+                        <button type="button" team-data="doosan"><span>두산 베어스</span></button>
+                    </li>
+                    <li>
+                        <button type="button" team-data="lg"><span>LG 트윈스</span></button>
+                    </li>
+                    <li>
+                        <button type="button" team-data="kt"><span>KT 위즈</span></button>
+                    </li>
+                    <li>
+                        <button type="button" team-data="ssg"><span>SSG 랜더스</span></button>
+                    </li>
+                    <li>
+                        <button type="button" team-data="nc"><span>NC 다이노스</span></button>
+                    </li>
+                    <li>
+                        <button type="button" team-data="kiwoom"><span>키움 히어로즈</span></button>
+                    </li>
+                    <li>
+                        <button type="button" team-data="kia"><span>기아 타이거즈</span></button>
+                    </li>
+                    <li>
+                        <button type="button" team-data="lotte"><span>롯데 자이언츠</span></button>
+                    </li>
+                    <li>
+                        <button type="button" team-data="samsung"><span>삼성 라이온즈</span></button>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-wrap">
+                    <button class="btn-comm-prime" id="applyTeam" onclick="dismissModal('bottomSheet03');"><span>선택 완료</span></button>
                 </div>
             </div>
         </div>

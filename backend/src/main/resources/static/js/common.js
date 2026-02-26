@@ -306,10 +306,6 @@ function initTimePicker(modalId) {
     }
 }
 /* *************************** 경기장 선택 *************************** */
-/**
- * 경기장 선택 모달 로직
- * aria-labelledby="searchStadium" 속성을 가진 모달 내부에서만 동작합니다.
- */
 function selectStadium() {
     const modal = document.querySelector('.modal[aria-labelledby="searchStadium"]');
     if (!modal) return;
@@ -331,15 +327,12 @@ function selectStadium() {
         }
     };
 
-    // 1. 버튼 클릭 핸들러
     modal.querySelectorAll('.select-item button').forEach(btn => {
         btn.onclick = (e) => {
             const targetId = e.currentTarget.getAttribute('aria-controls');
             const btnText = e.currentTarget.textContent.trim();
             const parentContainer = e.currentTarget.closest('.select-item');
 
-            // [수정] 어떤 버튼을 누르든 일단 현재 텍스트를 최신 선택값으로 업데이트
-            // 하위 메뉴가 있든 없든, 마지막에 누른 것이 '구장명'이 될 가능성이 높기 때문입니다.
             selectedStadium = btnText;
 
             const type = parentContainer.id === 'gameMenu' ? 'league' : 'stadium';
@@ -351,7 +344,6 @@ function selectStadium() {
         };
     });
 
-    // 2. 태그 생성 및 삭제
     const addChoiceTag = (text, type, sourceId) => {
         const isExist = Array.from(viewChoiceUl.querySelectorAll('span')).some(s => s.textContent === text);
         if (isExist) return;
