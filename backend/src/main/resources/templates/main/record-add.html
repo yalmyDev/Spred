@@ -19,51 +19,10 @@
             <div class="header">
                 <div class="left">
                     <button type="button" class="arrow-btn" title="이전 화면 이동하기"></button>
-                    <h1><em>기록해연</em> 님의 응원 기록</h1>
+                    <h1>직관기록 추가하기</h1>
                 </div>
             </div>
-            <section class="field-wrap">
-                <h2 class="tit-d03">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="8" transform="rotate(90 12 12)" stroke="#222222" stroke-width="1.5"/>
-                        <path d="M16.7936 18.572C15.9465 17.8483 15.2514 16.8869 14.7658 15.7672C14.2802 14.6475 14.018 13.4017 14.0009 12.1326C13.9838 10.8636 14.2123 9.60778 14.6674 8.4689C15.1226 7.33002 15.7914 6.34077 16.6186 5.58288" stroke="#222222" stroke-width="1.5"/>
-                        <path d="M7.20637 18.572C8.05353 17.8483 8.74862 16.8869 9.23422 15.7672C9.71983 14.6475 9.98201 13.4017 9.99911 12.1326C10.0162 10.8636 9.78773 9.60778 9.33256 8.4689C8.87739 7.33002 8.20858 6.34077 7.38139 5.58288" stroke="#222222" stroke-width="1.5"/>
-                    </svg>경기 정보
-                </h2>
-                <div class="form-group-wrap">
-                    <fieldset class="form-group">
-                        <legend class="form-tit"><span>구장</span></legend>
-                        <div class="group-wrap">
-                            <button class="form-item search" type="button" title="경기장 선택 풀팝업열기" onclick="openModal('fullModal01')" data-type="required" aria-required="true">
-                                <span class="rd-btn-txt">경기장 검색하기</span>
-                                <i aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </fieldset>
-                    <!--//-->
-                    <fieldset class="form-group">
-                        <legend class="form-tit"><span>홈/원정</span></legend>
-                        <div class="group-wrap">
-                            <label class="form-item">
-                                <input type="radio" name="place" value="home" class="radio-btn" required>
-                                <span class="rd-btn-txt">홈</span>
-                            </label>
-                            <label class="form-item">
-                                <span class="rd-btn-txt">원정</span>
-                                <input type="radio" name="place" value="away" class="radio-btn" required>
-                            </label>
-                        </div>
-                    </fieldset>
-                    <!--//-->
-                    <fieldset class="form-group">
-                        <legend class="form-tit"><span>상대팀</span></legend>
-                        <div class="group-wrap">
-                            <button type="button" id="showTeam" class="data-input-box" aria-haspopup="dialog" aria-controls="bottomSheet03" onclick="openModal('bottomSheet03');"><span id="displayTeam">상대팀 선택</span></button>
-                        </div>
-
-                    </fieldset>
-                </div>
-            </section>
+            <!-- [start]기본정보 -->
             <section class="field-wrap">
                 <h2 class="tit-d03">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -145,6 +104,169 @@
                     <!-- // -->
                 </div>
             </section>
+            <!-- [end]기본정보 -->
+            
+            <!-- [start]경기정보 -->
+            <section class="field-wrap">
+                <h2 class="tit-d03">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="8" transform="rotate(90 12 12)" stroke="#222222" stroke-width="1.5"/>
+                        <path d="M16.7936 18.572C15.9465 17.8483 15.2514 16.8869 14.7658 15.7672C14.2802 14.6475 14.018 13.4017 14.0009 12.1326C13.9838 10.8636 14.2123 9.60778 14.6674 8.4689C15.1226 7.33002 15.7914 6.34077 16.6186 5.58288" stroke="#222222" stroke-width="1.5"/>
+                        <path d="M7.20637 18.572C8.05353 17.8483 8.74862 16.8869 9.23422 15.7672C9.71983 14.6475 9.98201 13.4017 9.99911 12.1326C10.0162 10.8636 9.78773 9.60778 9.33256 8.4689C8.87739 7.33002 8.20858 6.34077 7.38139 5.58288" stroke="#222222" stroke-width="1.5"/>
+                    </svg>경기 정보
+                </h2>
+                <div class="form-group-wrap">
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>구장</span></legend>
+                        <div class="group-wrap">
+                            <button class="form-item search" type="button" title="경기장 선택 풀팝업열기" onclick="openModal('fullModal01')" data-type="required" aria-required="true">
+                                <span class="rd-btn-txt">경기장 검색하기</span>
+                                <i aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </fieldset>
+                    <!--//-->
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>홈/원정</span></legend>
+                        <div class="group-wrap">
+                            <label class="form-item">
+                                <input type="radio" name="place" value="home" class="radio-btn" required>
+                                <span class="rd-btn-txt">홈</span>
+                            </label>
+                            <label class="form-item">
+                                <span class="rd-btn-txt">원정</span>
+                                <input type="radio" name="place" value="away" class="radio-btn" required>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <!--//-->
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>상대팀</span></legend>
+                        <div class="group-wrap">
+                            <label for="" class="form-item">
+                                <input type="text" class="txt-input" placeholder="상대팀 입력" required>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <!-- // -->
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>점수</span></legend>
+                        <div class="group-wrap point-wrap">
+                            <label for="myTeam" class="form-item">
+                                <input type="number" id="myTeam" class="txt-input" placeholder="우리 점수" required>
+                            </label>
+                            <label for="otherTeam" class="form-item">
+                                <input type="number" id="otherTeam" name="other-point" placeholder="상대 점수" required>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <!-- // -->
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>경기 결과</span></legend>
+                        <div class="group-wrap">
+                            <label class="form-item">
+                                <input type="radio" name="game-result" id="win" required>
+                                <span class="rd-btn-txt">승</span>
+                            </label>
+                            <label class="form-item">
+                                <input type="radio" name="game-result" id="lose" required>
+                                <span class="rd-btn-txt">패</span>
+                            </label>
+                            <label class="form-item">
+                                <input type="radio" name="game-result" id="draw" required>
+                                <span class="rd-btn-txt">무</span>
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+            </section>
+            <!-- [end]경기정보 -->
+            
+            <!-- [start]좌석 정보 -->
+            <section class="field-wrap">
+                <h2 class="tit-d03">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 3.00001L7 3.00001C5.11438 3.00001 4.17157 3.00001 3.58579 3.58579C3 4.17158 3 5.11439 3 7.00001L3 21L6 20L9 21L12 20L15 21L15 9M18 3.00001C16.3431 3.00001 15 4.34315 15 6.00001L15 9M18 3.00001C19.6569 3.00001 21 4.34315 21 6.00001L21 8.14286C21 8.47698 21 8.64405 20.9234 8.76602C20.8834 8.82962 20.8296 8.8834 20.766 8.92336C20.644 9 20.477 9 20.1429 9L15 9" stroke="#222222"/>
+                        <path d="M7 7L11 7" stroke="#222222" stroke-linecap="round"/>
+                        <path d="M8 11H7" stroke="#222222" stroke-linecap="round"/>
+                        <path d="M7 15L10 15" stroke="#222222" stroke-linecap="round"/>
+                    </svg>좌석 정보
+                </h2>
+                <div class="form-group-wrap">
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>좌석 종류</span></legend>
+                        <div class="group-wrap">
+                            <label class="form-item">
+                                <input type="text" placeholder="좌석 종류 입력" required>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>좌석 위치</span></legend>
+                        <div class="group-wrap">
+                            <label class="form-item">
+                                <input type="text" placeholder="좌석 위치 입력">
+                            </label>
+                        </div>
+                        <p class="msg-normal">구역, 열, 번호 등을 자유롭게 입력하세요</p>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>좌석 메모</span></legend>
+                        <div class="group-wrap">
+                            <label class="form-item">
+                                <textarea name="seat" id="seatMemp" placeholder="오늘의 좌석은?"></textarea>
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+            </section>
+            <!-- [end]좌석 정보 -->
+            
+            <!-- [start]추가정보 -->
+            <section class="field-wrap">
+                <h2 class="tit-d03">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.5 18.5H6.5C5.94772 18.5 5.5 18.0523 5.5 17.5V9.5C5.5 7.29086 7.29086 5.5 9.5 5.5H14.5C16.7091 5.5 18.5 7.29086 18.5 9.5V11.5" stroke="#222222" stroke-linecap="round"/>
+                        <path d="M7.5 10.5L14.5 10.5" stroke="#222222" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7.5 13.5L12.5 13.5" stroke="#222222" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="16.5" cy="15.5" r="2" stroke="#222222"/>
+                        <path d="M19 18L20.5 19.5" stroke="#222222" stroke-linecap="round"/>
+                    </svg>추가 정보
+                </h2>
+                <div class="form-group-wrap">
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>사진 첨부</span></legend>
+                        <div class="group-wrap cam-wrap">
+                            <label class="form-item" for="addPhoto">
+                                <i aria-hidden="true"></i>
+                                <input type="file" class="ally-hidden" id="addPhoto" accept="image/*" aria-label="사진 첨부하기">
+                                <span>사진을 추가해보세요<br><em>여러 장 선택 가능</em></span>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>일행</span></legend>
+                        <div class="group-wrap">
+                            <label class="form-item" for="group">
+                                <textarea name="friends" id="group" placeholder="오늘의 일행은?"></textarea>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <legend class="form-tit"><span>자유 메모</span></legend>
+                        <div class="group-wrap">
+                            <label class="form-item" for="freeNote">
+                                <textarea name="note" id="freeNote"></textarea>
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+            </section>
+            <!-- [end]추가정보 -->
+            
+            <div class="link-btn-wrap">
+                <a href="#" class="link-btn" title="...페이지 이동하기"></a>
+            </div>
         </div>
         <!-- ########################### [start]_푸터 : 하단버튼 영역 ########################### -->
         <footer class="footer">
@@ -356,57 +478,6 @@
             <div class="modal-footer">
                 <div class="btn-wrap">
                     <button class="btn-comm-prime" id="applyPlace" onclick="dismissModal('fullModal01');"><span>선택 완료</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ########################### [start]_모달 영역_시간선택 ########################### -->
-<div class="modal btm-sheet" id="bottomSheet03" role="dialog" aria-labelledby="selectTeam" aria-modal="true">
-    <div class="modal-container">
-        <div class="modal-content-wrap">
-            <div class="modal-header">
-                <h2 class="modal-tit" id="selectTeam">상대팀 선택</h2>
-                <button type="button" class="close-md" title="모달 닫기" onclick="dismissModal('bottomSheet03');"></button>
-            </div>
-            <div class="modal-content">
-                <ul class="grid-btn-wrap">
-                    <li>
-                        <button type="button" team-data="hanhwa"><span>한화 이글스</span></button>
-                    </li>
-                    <li>
-                        <button type="button" team-data="doosan"><span>두산 베어스</span></button>
-                    </li>
-                    <li>
-                        <button type="button" team-data="lg"><span>LG 트윈스</span></button>
-                    </li>
-                    <li>
-                        <button type="button" team-data="kt"><span>KT 위즈</span></button>
-                    </li>
-                    <li>
-                        <button type="button" team-data="ssg"><span>SSG 랜더스</span></button>
-                    </li>
-                    <li>
-                        <button type="button" team-data="nc"><span>NC 다이노스</span></button>
-                    </li>
-                    <li>
-                        <button type="button" team-data="kiwoom"><span>키움 히어로즈</span></button>
-                    </li>
-                    <li>
-                        <button type="button" team-data="kia"><span>기아 타이거즈</span></button>
-                    </li>
-                    <li>
-                        <button type="button" team-data="lotte"><span>롯데 자이언츠</span></button>
-                    </li>
-                    <li>
-                        <button type="button" team-data="samsung"><span>삼성 라이온즈</span></button>
-                    </li>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <div class="btn-wrap">
-                    <button class="btn-comm-prime" id="applyTeam" onclick="dismissModal('bottomSheet03');"><span>선택 완료</span></button>
                 </div>
             </div>
         </div>
